@@ -44,6 +44,8 @@
     self.MagicNumText.text=[NSString stringWithFormat:@"Magic #: %ld",self.ProcessAddr.magicNum];
     self.NetworkID.text=[NSString stringWithFormat:@"Network ID: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.NetworkID]];
     self.FirstAddrText.text=[NSString stringWithFormat:@"First Address: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.FirstAddr]];
+    self.BroadcastText.text=[NSString stringWithFormat:@"Broadcast Address: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.BroadcastAddr]];
+    self.LastAddrText.text=[NSString stringWithFormat:@"Last Address: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.LastAddr]];
 }
 
 @end

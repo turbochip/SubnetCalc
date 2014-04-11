@@ -64,18 +64,33 @@
     
 }
 
+- (NSMutableArray *)calcLastAddress:(NSMutableArray *) bcastAddr
+{
+    for (int i=0;i<4;i++) {
+        self.LastAddr[i]=bcastAddr[i];
+    }
+    self.LastAddr[3]=[NSString stringWithFormat:@"%d",
+                       [self.LastAddr[3] intValue]-1];
+    return self.LastAddr;
+    
+}
+
+
 - (NSMutableArray *)calcBroadcastAddress:(NSMutableArray *) netID withIntOctet:(NSInteger) intOctet andMagicNum: (NSInteger) Magic
 {
     for (int i=0;i<4;i++) {
         if(i<intOctet) {
-            self.FirstAddr[i]=netID[i];
+            self.BroadcastAddr[i]=netID[i];
         }else {
-            self.FirstAddr[i]=@"0";
+            if(i>intOctet) {
+                self.BroadcastAddr[i]=@"255";
+            }else {
+                self.BroadcastAddr[i]=[NSString stringWithFormat:@"%ld",[netID[i] intValue]+Magic-1];
+            }
         }
     }
-    self.FirstAddr[3]=[NSString stringWithFormat:@"%d",
-                       [netID[3] intValue]+1];
-    return _FirstAddr;
+    
+    return self.BroadcastAddr;
     
 }
 
@@ -105,6 +120,8 @@
         }
     }
     self.FirstAddr=[self calcFirstAddress:self.NetworkID withIntOctet:self.intOctet];
+    self.BroadcastAddr=[self calcBroadcastAddress:self.NetworkID withIntOctet:self.intOctet andMagicNum:self.magicNum];
+    self.LastAddr=[self calcLastAddress:self.BroadcastAddr];
 }
 
 /*buildAddrString - uses stringWithFormat to turn an array into an IP address string */
