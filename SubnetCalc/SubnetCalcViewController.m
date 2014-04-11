@@ -17,6 +17,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *SubnetMaskText;
 @property (weak, nonatomic) IBOutlet UILabel *intOctetText;
 @property (weak, nonatomic) IBOutlet UILabel *MagicNumText;
+@property (weak, nonatomic) IBOutlet UILabel *FirstAddrText;
+@property (weak, nonatomic) IBOutlet UILabel *LastAddrText;
+@property (weak, nonatomic) IBOutlet UILabel *BroadcastText;
+@property (weak, nonatomic) IBOutlet UILabel *NetworkID;
 
 @end
 
@@ -38,6 +42,8 @@
     self.SubnetMaskText.text=[NSString stringWithFormat:@"Subnet Mask: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.SubnetMask]];
     self.intOctetText.text=[NSString stringWithFormat:@"Interesting Octet : %@",[NSString stringWithFormat:@"%ld",(long)self.ProcessAddr.intOctet+1 ]];
     self.MagicNumText.text=[NSString stringWithFormat:@"Magic #: %ld",self.ProcessAddr.magicNum];
+    self.NetworkID.text=[NSString stringWithFormat:@"Network ID: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.NetworkID]];
+    self.FirstAddrText.text=[NSString stringWithFormat:@"First Address: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.FirstAddr]];
 }
 
 @end
