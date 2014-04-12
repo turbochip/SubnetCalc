@@ -37,6 +37,7 @@
 - (IBAction)CalcButton:(UIButton *)sender {
     NSLog(@"%@",self.IPAField.text);
     NSLog(@"%@",self.SubnetMaskField.text);
+    
     [self.ProcessAddr doCalculationsFor:self.IPAField.text andSubnet:self.SubnetMaskField.text];
     self.IPAText.text=[NSString stringWithFormat:@"IP Address: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.IPAddr]];
     self.SubnetMaskText.text=[NSString stringWithFormat:@"Subnet Mask: %@",[self.ProcessAddr buildAddrString:self.ProcessAddr.SubnetMask]];

@@ -44,38 +44,31 @@
 - (NSString *)calcSubnetID:(NSMutableArray *) ipAddr withMagic:(NSInteger) Magic andIntOctet: (NSInteger)intOctet
 {
     return [NSString stringWithFormat:@"%d",(int)(trunc([ipAddr[intOctet] intValue]/Magic)*Magic)];
-    
-	//return 1;
-    //trunc(ipAddr[intOctet]/Magic)*Magic;
 }
 
+/*Calculate first address which is the subnetID + 1 */
 - (NSMutableArray *)calcFirstAddress:(NSMutableArray *) netID withIntOctet:(NSInteger) intOctet
 {
-    for (int i=0;i<4;i++) {
-        if(i<=intOctet) {
-            self.FirstAddr[i]=netID[i];
-        }else {
-            self.FirstAddr[i]=@"0";
-        }
-    }
-    self.FirstAddr[3]=[NSString stringWithFormat:@"%d",
-                       [netID[3] intValue]+1];
-    return _FirstAddr;
+    self.FirstAddr=[netID mutableCopy];
     
+    int NewQ4=[self.FirstAddr[3] intValue]+1;
+    self.FirstAddr[3]=[NSString stringWithFormat:@"%d",NewQ4];
+    
+    return (NSMutableArray *)self.FirstAddr;
 }
 
+/* Calculate last address which is the broadcast address + 1 */
 - (NSMutableArray *)calcLastAddress:(NSMutableArray *) bcastAddr
 {
-    for (int i=0;i<4;i++) {
-        self.LastAddr[i]=bcastAddr[i];
-    }
+    self.LastAddr=[bcastAddr mutableCopy];
+
     self.LastAddr[3]=[NSString stringWithFormat:@"%d",
                        [self.LastAddr[3] intValue]-1];
-    return self.LastAddr;
     
+    return self.LastAddr;
 }
 
-
+/* Calculate Broadcast Address */
 - (NSMutableArray *)calcBroadcastAddress:(NSMutableArray *) netID withIntOctet:(NSInteger) intOctet andMagicNum: (NSInteger) Magic
 {
     for (int i=0;i<4;i++) {
